@@ -27,11 +27,4 @@ export class EditShoppingItemPage {
     });
   }
 
-  removeItem(item: Item) {
-    this.shopping.removeItem(item).then(() =>{
-      this.toast.show(`${item.name} has been deleted!`);
-      this.navCtrl.setRoot('HomePage');
-    })
-  }
-
 }
