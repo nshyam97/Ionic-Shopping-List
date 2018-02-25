@@ -3,6 +3,7 @@ import { NavController, IonicPage } from 'ionic-angular';
 import { ShoppingListService } from '../../services/shopping-list/shopping-list.service';
 import { Observable } from 'rxjs';
 import { Item } from '../../models/item/item.model';
+import { ToastService } from '../../services/toast/toast.service';
 
 
 @IonicPage()
@@ -14,7 +15,7 @@ export class HomePage {
 
   shoppingList$: Observable<Item[]>;
 
-  constructor(public navCtrl: NavController, private shopping: ShoppingListService) {
+  constructor(public navCtrl: NavController, private shopping: ShoppingListService, private toast: ToastService) {
     this.shoppingList$ = this.shopping
       .getShoppingList()
       .snapshotChanges()
@@ -25,6 +26,18 @@ export class HomePage {
           }));
         }
       );
+  }
+
+  editShoppingItem(item: Item) {
+    this.navCtrl.push('EditShoppingItemPage', {
+      item: item
+    })
+  }
+
+  deleteShoppingItem(item: Item) {
+    this.shopping.removeItem(item).then(() =>{
+      this.toast.show(`${item.name} has been deleted!`);
+    })
   }
 
 }
