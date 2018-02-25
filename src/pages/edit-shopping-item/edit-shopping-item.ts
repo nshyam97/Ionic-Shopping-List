@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Item } from '../../models/item/item.model';
 import { ShoppingListService } from '../../services/shopping-list/shopping-list.service';
 import { ToastService } from '../../services/toast/toast.service';
@@ -13,7 +13,8 @@ export class EditShoppingItemPage {
 
   item: Item;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private shopping: ShoppingListService, private toast: ToastService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private shopping: ShoppingListService, private toast: ToastService, 
+  private loadingCtrl: LoadingController) {
   }
 
   ionViewWillLoad() {
@@ -21,10 +22,23 @@ export class EditShoppingItemPage {
   }
 
   saveItem(item: Item) {
-    this.shopping.editItem(item).then(() => {
-      this.toast.show(`${item.name} saved!`);
-      this.navCtrl.setRoot('HomePage');
-    });
+    this.shopping.editItem(item)
+      .then(() => {
+        this.presentLoading();
+        setTimeout(() => {
+          this.toast.show(`${item.name} saved!`);
+          this.navCtrl.setRoot('HomePage');  
+        }, 1000);
+      });
   }
 
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      spinner: 'dots',
+      content: 'Updating...',
+      duration: 1000
+    });
+
+    loading.present();
+  }
 }
