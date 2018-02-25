@@ -17,13 +17,13 @@
     <ion-list-header>
       Items
     </ion-list-header>
-    <ion-item-sliding *ngFor="let item of shoppingList$ | async">
+    <ion-item-sliding *ngFor="let item of shoppingList$ | async" (ionSwipe)="deleteShoppingItem(item)">
       <ion-item detail-pull>
         {{item.name}}
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button (click)="editShoppingItem(item)">Edit</button>
-        <button ion-button color="danger" (click)="deleteShoppingItem(item)">Delete</button>
+        <button ion-button class='editButton' (click)="editShoppingItem(item)">Edit</button>
+        <button ion-button expandable class='deleteButton' color="danger" (click)="deleteShoppingItem(item)">Delete</button>
       </ion-item-options>
   </ion-item-sliding>
   </ion-list>

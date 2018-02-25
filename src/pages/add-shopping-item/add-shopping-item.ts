@@ -25,13 +25,14 @@ export class AddShoppingItemPage {
   }
 
   addItem(item: Item) {
-    this.shopping.addItem(item).then(ref => {
-      this.presentLoading();
-      setTimeout(() => {
-        this.toast.show(`${item.name} added!`);
-        this.navCtrl.setRoot('HomePage', {key: ref.key});
-      }, 1000)
-    });
+    this.shopping.addItem(item)
+      .then(ref => {
+        this.presentLoading();
+        setTimeout(() => {
+          this.toast.show(`${item.name} added!`);
+          this.navCtrl.setRoot('HomePage', {key: ref.key});
+        }, 1000)
+      });
   }
 
   presentLoading() {
