@@ -6,7 +6,8 @@
 
     <ion-buttons end>
       <button navPush="AddShoppingItemPage" ion-button>
-        <ion-icon name="add"></ion-icon>
+          <span ion-text showWhen="ios">Add</span>
+          <ion-icon name="md-add" showWhen="android, windows"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -17,12 +18,11 @@
     <ion-list-header>
       Items
     </ion-list-header>
-    <ion-item-sliding *ngFor="let item of shoppingList$ | async" (ionSwipe)="deleteShoppingItem(item)">
-      <ion-item detail-pull>
+    <ion-item-sliding *ngFor="let item of shoppingList$ | async">
+      <ion-item class='item-name' detail-pull (click)="openModal(item)">
         {{item.name}}
       </ion-item>
       <ion-item-options side="right">
-        <button ion-button class='editButton' (click)="editShoppingItem(item)">Edit</button>
         <button ion-button expandable class='deleteButton' color="danger" (click)="deleteShoppingItem(item)">Delete</button>
       </ion-item-options>
   </ion-item-sliding>

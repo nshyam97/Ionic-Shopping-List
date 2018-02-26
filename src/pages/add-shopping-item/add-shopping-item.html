@@ -9,19 +9,21 @@
 
 <ion-content padding>
   <ion-item>
-    <ion-label>Name</ion-label>
-    <ion-input [(ngModel)]="item.name" placeholder="iPad Pro"></ion-input>
+    <ion-label color="primary" floating>Name</ion-label>
+    <ion-input [(ngModel)]="item.name" type="text"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Quantity</ion-label>
-    <ion-input [(ngModel)]="item.quantity" type="number" placeholder="1"></ion-input>
+    <ion-label color="primary" floating>Quantity</ion-label>
+    <ion-input [(ngModel)]="item.quantity" [min]="0" type="number"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label>Price</ion-label>
-    <ion-input [(ngModel)]="item.price" type="number" placeholder="700"></ion-input>
+    <ion-label color="primary" floating>Price</ion-label>
+    <ion-input [(ngModel)]="item.price" [min]="0" type="number"></ion-input>
   </ion-item>
 
-  <button ion-button block clear (click)="addItem(item)">Add</button>
+  <div text-center align-items-center>
+    <button ion-button outline (click)="addItem(item)">Add</button>
+  </div>
 </ion-content>

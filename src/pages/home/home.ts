@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import { NavController, IonicPage, ModalController } from 'ionic-angular';
 import { ShoppingListService } from '../../services/shopping-list/shopping-list.service';
 import { Observable } from 'rxjs';
 import { Item } from '../../models/item/item.model';
@@ -15,7 +15,7 @@ export class HomePage {
 
   shoppingList$: Observable<Item[]>;
 
-  constructor(public navCtrl: NavController, private shopping: ShoppingListService, private toast: ToastService) {
+  constructor(public navCtrl: NavController, private shopping: ShoppingListService, private toast: ToastService, private modal: ModalController) {
     this.shoppingList$ = this.shopping
       .getShoppingList()
       .snapshotChanges()
@@ -28,10 +28,9 @@ export class HomePage {
       );
   }
 
-  editShoppingItem(item: Item) {
-    this.navCtrl.push('EditShoppingItemPage', {
-      item: item
-    })
+  openModal(item: Item) {
+    const itemModal = this.modal.create('ModalPage', {item});
+    itemModal.present();
   }
 
   deleteShoppingItem(item: Item) {
